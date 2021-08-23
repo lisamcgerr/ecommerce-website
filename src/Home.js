@@ -11,7 +11,11 @@ function Home() {
                 src='https://user-images.githubusercontent.com/73184313/127373370-a925e758-eba5-461f-834e-2fe14498a6e1.jpg ' 
                 alt='grey paint background' />
                 <div className='home__row'>
-                    <Product />
+                    <Product
+                    title='Manifest Now'
+                    price={19.99}
+                    image='https://user-images.githubusercontent.com/73184313/127376246-797c1001-b49b-4ec3-ab40-c8ecef78a89e.jpg' 
+                    rating={4} />
                     <Product />
                 </div>
                 <div className='home__row'>
