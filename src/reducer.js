@@ -3,7 +3,8 @@ export const initialState = {
 }
 
 const reducer = ( state, action ) => {
-
+    console.log(action)
+    //checking the action when clicked
     switch(action.type){
         case 'ADD_TO_BASKET':
             return {
