@@ -4,6 +4,19 @@ import { Link } from 'react-router-dom'
 
 
 function Login() {
+
+    const [ email, setEmail ] = useState('')
+    const [ password, setPassword ] = useState('')
+
+    const signIn = e => {
+        e.preventDefault()
+
+    }
+
+    const register = e => {
+        e.preventDefault()
+    }
+
     return (
         <div className='login'>
             <Link to='/'>
@@ -16,16 +29,31 @@ function Login() {
                 <h1>Sign In</h1>
                 <form>
                     <h5>Email:</h5>
-                    <input type='text'/>
+                    <input 
+                        type='text'
+                        value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                    />
 
                     <h5>Password:</h5>
-                    <input type='password'/>
+                    <input 
+                        type='password'
+                        value={password}
+                        onChange={e=> setPassword(e.target.value)}
+                    />
 
-                    <button className='login__signInButton'>Sign In</button>
+                    <button 
+                        className='login__signInButton'
+                        type='submit'
+                        onClick={signIn}
+                    >Sign In</button>
                 </form>
                 <p>By signing-in you agree & accept the ECOMMERCE WEBSITE Conditions of Use & Sale.</p>
 
-                <button className='login__registerButton'>Create Account</button>
+                <button 
+                    className='login__registerButton'
+                    onClick={register}
+                >Create Account</button>
 
             </div>
         </div>
