@@ -8,7 +8,7 @@ function Home() {
             <div className='home__container'>
                 <img 
                 className='home__image' 
-                src='https://user-images.githubusercontent.com/73184313/127373370-a925e758-eba5-461f-834e-2fe14498a6e1.jpg ' 
+                src='https://user-images.githubusercontent.com/73184313/127373370-a925e758-eba5-461f-834e-2fe14498a6e1.jpg' 
                 alt='grey paint background' />
                 <div className='home__row'>
                     <Product
