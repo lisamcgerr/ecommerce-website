@@ -6,7 +6,7 @@ function Product({ id, title, image, price, rating}) {
 
     const [ { basket } , dispatch ] = useStateValue()
     //broke down state to remove only the basket key
-    console.log('this is the basket >>>', basket )
+    //console.log('this is the basket >>>', basket )
 
 
     const addToBasket = () => {
