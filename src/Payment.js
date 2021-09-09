@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react'
 import CheckoutProduct from './CheckoutProduct'
 import './Payment.css'
 import { useStateValue } from './StateProvider'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { getBasketTotal } from './reducer'
 import CurrencyFormat from 'react-currency-format'
-//import 
+import axios from './axios'
+
 
 function Payment() {
     const [ { basket, user }, dispatch ] = useStateValue()
 
     const stripe = useStripe()
     const elements = useElements()
+    const history = useHistory()
 
     const [processing, setProcessing] = useState('')
     const [succeeded, setSucceeded] = useState(false)
@@ -20,24 +22,42 @@ function Payment() {
     const [disabled, setDisabled] = useState(true)
     const [clientSecret, setClientSecret] = useState(true)
 
-    // Similar to componentDidMount and componentDidUpdate:
+    //similar to componentDidMount and componentDidUpdate:
+    //when the basket changes it will make this post request and get the secret to charge the customer
     useEffect(() => {
         //generate the stripe secret
         const getClientSecret = async () => {
-            const response = await axios
+            const response = await axios({
+                method: 'post',
+                //stripe expects the total in currencies - pennies
+                url: `/payments/create?total=${getBasketTotal(basket) * 100}`
+            })
             //axios is a way of making requests
-
+            setClientSecret(response.data.clientSecret)
         }
+        getClientSecret()
     }, [basket])
     
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         //stripe logic
         //async function
         e.preventDefault()
         setProcessing(true)
         //diabling button
-        //const payload = await stripe 
+
+        //uses the client secret
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({paymentIntent}) => {
+            //paymentIntent is the payment confirmation
+            setSucceeded(true)
+            setError(null)
+            setProcessing(false)
+            history.replace('/orders')
+        })
 
 
     }
